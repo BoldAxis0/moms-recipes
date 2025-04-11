@@ -25,3 +25,26 @@ def getRecipe(request):
 #serialise and return the found object
     serializer = RecipeSerializer(recipe)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def getAllRecipes(request):
+    
+    recipes = Recipe.objects.all()
+    
+    if not recipes:
+        return Response({"message: No Recipes Found"}, status = status.HTTP_404_NOT_FOUND)
+    
+    serializer = RecipeSerializer(recipes, many = True)
+    
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def addRecipe(request):
+    
+    #add a recipe
+    
+    return
+
+    
