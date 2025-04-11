@@ -13,19 +13,21 @@ from rest_framework.response import Response
 def getRecipe(request):
     
 #extract recipe id from the json package
-    id = request.GET.get('id')
+    req_body = json.loads(request.body.decode("utf-8"))
+    id = req_body['id']
 
 #search db with the provided id
-    recipe = Recipe.objects.filter(id = id)
+    recipe = Recipe.objects.get(id = id)
     
     if not recipe:
         return Response({"message":"Recipe not found"}, status=status.HTTP_404_NOT_FOUND)
     
-
-#serialise and return the found object
+    print(recipe)
+    #serialise and return the found object
     serializer = RecipeSerializer(recipe)
+    
     return Response(serializer.data, status=status.HTTP_200_OK)
-
+    
 
 @api_view(["GET"])
 def getAllRecipes(request):
@@ -44,7 +46,24 @@ def getAllRecipes(request):
 def addRecipe(request):
     
     #add a recipe
+    #get all recipe info from the request object
+    req_body = json.loads(request.body.decode('utf-8'))
+    title = req_body["title"]
+    desc = req_body["description"]
     
-    return
+    data = {
+        "title": title,
+        "description":desc 
+    }
+    
+    
+    serializer = RecipeSerializer(data=data)
+    print(serializer.initial_data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
+    else:
+        
+        return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
 
     
