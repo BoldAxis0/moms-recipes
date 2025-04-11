@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
+pip install djangorestframework
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
