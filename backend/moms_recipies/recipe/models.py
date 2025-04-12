@@ -8,6 +8,7 @@ class Recipe(models.Model):
     description = models.CharField(null=True, blank=True, max_length=10000)
     # audio = models.FileField()
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # pic = models.ImageField()
+    pic = models.ImageField(upload_to="pics/recipes", blank = True, null=True)
+    
     
     
