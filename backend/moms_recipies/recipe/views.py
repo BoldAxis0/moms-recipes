@@ -67,3 +67,38 @@ def addRecipe(request):
         return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
 
     
+@api_view(["POST"])
+def addRecipePic(request):
+    #get the id for the recipe
+    # req_body = json.loads(request.body.decode('utf-8'))
+    id = request.POST.get('id')
+    
+    # id = req_body['id']
+    
+    recipe = Recipe.objects.get(id = id)
+    if not recipe:
+        return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    print(recipe.title)
+    
+    #add the image file to the image parameter??
+    #read pic from reqeust.FILES
+    pic = request.FILES['pic']
+    
+    print(pic)
+    
+    data = {"pic":pic}
+    
+    serializer = RecipeSerializer(recipe, data = data, partial=True)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)
+    
+    else:
+        return Response({"message":"Something broke"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    #???? profit
+    
+    #image file be passed as form data
+    
