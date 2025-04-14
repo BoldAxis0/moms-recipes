@@ -7,22 +7,22 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 //have to put props in curly braces like dis: func name({props go here})
-function RecipeCard({onClick}) {
+function RecipeCard({onClick, recipe}) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
+
       <CardMedia
         sx={{ height: 140 }}
-        image="/assets/react.svg"
+        image={recipe.pic}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {recipe.title}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {recipe.description}
         </Typography>
       </CardContent>
       <CardActions>

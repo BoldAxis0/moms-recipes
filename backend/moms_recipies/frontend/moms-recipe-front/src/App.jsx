@@ -4,7 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import RecipeCard from "./RecipeCard";
 import axios from "axios";
-import { setRef } from "@mui/material";
+import { Button, List, ListItem, setRef } from "@mui/material";
 
 function App() {
   // const axios = require('axios')
@@ -38,20 +38,28 @@ function App() {
     console.log("recipes are as follows: ", recipes);
   }, [recipes]);
 
-  const onClick = () => {
-    console.log("hurray!  i was clicked hehe");
-    setRecipeClicked(true);
-  };
+  // const onClick = () => {
+  //   console.log("hurray!  i was clicked hehe");
+  //   setRecipeClicked(true);
+  // };
 
   return (
     <>
       {!recipeClicked ? (
-        //show all recipes
-        <RecipeCard onClick={onClick} />
+        <List>
+          {recipes.map((recipe) => (
+            <ListItem>
+              <RecipeCard
+                recipe={recipe}
+                onClick={() => setRecipeClicked(true)}
+              />
+            </ListItem>
+          ))}
+        </List>
       ) : (
-        //else call DetailedRecipe
-
-        <h1>hello</h1>
+        <>
+          <h1 onClick={() => setRecipeClicked(false)}>hello</h1>
+        </>
       )}
     </>
   );
