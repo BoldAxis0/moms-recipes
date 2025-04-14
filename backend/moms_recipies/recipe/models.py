@@ -12,5 +12,6 @@ class Recipe(models.Model):
     
     pic = models.ImageField(upload_to="pics/recipes", blank = True, null=True)
     
+    audio = models.FileField(upload_to="audio/recipes", blank=True, null=True)
     
     

@@ -1,3 +1,4 @@
+from django.db import Error
 from django.shortcuts import render
 from .models import Recipe
 import requests
@@ -71,19 +72,26 @@ def addRecipe(request):
 def addRecipePic(request):
     #get the id for the recipe
     # req_body = json.loads(request.body.decode('utf-8'))
+    
+    #everywhere else the id is passed as JSON, but here it is passed
+    #as form data, along with the image file
     id = request.POST.get('id')
     
     # id = req_body['id']
-    
-    recipe = Recipe.objects.get(id = id)
-    if not recipe:
+
+    try:
+        recipe = Recipe.objects.get(id = id)
+    except:
         return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
     
     print(recipe.title)
     
     #add the image file to the image parameter??
     #read pic from reqeust.FILES
-    pic = request.FILES['pic']
+    try:
+        pic = request.FILES['pic']
+    except:
+        return Response({"message":"pic field not found"}, status=status.HTTP_404_NOT_FOUND)
     
     print(pic)
     
@@ -101,4 +109,40 @@ def addRecipePic(request):
     #???? profit
     
     #image file be passed as form data
+    
+@api_view(["POST"])
+def addRecipeAudio(request):
+    
+    #get the recipe id from the form request
+    
+    id = request.POST.get('id')
+    
+    try:
+        recipe = Recipe.objects.get(id = id)
+        # print("ass")
+    except:
+        return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    print(recipe.title)
+
+    #proceed to add the audio to recipe serialiser and object
+    try:
+        audio = request.FILES['audio']
+    except:
+        return Response({"message":"audio field not found"}, status=status.HTTP_404_NOT_FOUND)
+       
+    #should probably validate the audio file here somewhere
+    
+    print(audio)
+    
+    data = {"audio":audio}
+    
+    serializer = RecipeSerializer(recipe, data= data, partial = True)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message":"audio saved successfully"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"message":"serialization failed"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
     
