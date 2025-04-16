@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, List, ListItem, Grid, Stack, Container, Box } from "@mui/material";
+import {
+  Button,
+  List,
+  ListItem,
+  Grid,
+  Stack,
+  Container,
+  Box,
+} from "@mui/material";
 
 //this page will show all the details of the cicked recipe
 const DetailedRecipe = ({ recipe, onClick }) => {
-
-  //this whole path thing will need to be 
+  //this whole path thing will need to be
   // reworked when deployed
-  let [imgPath, setImgPath] = useState()
-  useEffect(()=>{
-    setImgPath(`http://localhost:8000${recipe.pic}`)
-  },[])
-  useEffect(()=>{
-    console.log("path incoming: ",imgPath)
-  },[imgPath])
+  let [imgPath, setImgPath] = useState();
+  useEffect(() => {
+    setImgPath(`http://localhost:8000${recipe.pic}`);
+  }, []);
+  useEffect(() => {
+    console.log("path incoming: ", imgPath);
+  }, [imgPath]);
+
+  let [audioPath, setAudioPath] = useState();
+  useEffect(() => {
+    setAudioPath(`http://localhost:8000${recipe.audio}`);
+  }, []);
+  useEffect(() => {
+    console.log("audio path incoming: ", audioPath);
+  }, [audioPath]);
 
   return (
     <>
@@ -25,6 +40,10 @@ const DetailedRecipe = ({ recipe, onClick }) => {
               //audio goes here
             }
             <h1>hello</h1>
+            <audio controls autoplay>
+              <source src={audioPath} type="audio/wav"/>
+            Your browser does not support the audio element.
+            </audio>
           </Grid>
 
           <Grid size="grow">
