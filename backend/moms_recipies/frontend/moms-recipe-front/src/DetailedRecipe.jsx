@@ -22,9 +22,11 @@ const DetailedRecipe = ({ recipe, onClick }) => {
   }, [imgPath]);
 
   let [audioPath, setAudioPath] = useState();
+
   useEffect(() => {
-    setAudioPath(`http://localhost:8000${recipe.audio}`);
+    setAudioPath(recipe.audio ? `http://localhost:8000${recipe.audio}` : "");
   }, []);
+
   useEffect(() => {
     console.log("audio path incoming: ", audioPath);
   }, [audioPath]);
@@ -33,17 +35,20 @@ const DetailedRecipe = ({ recipe, onClick }) => {
     <>
       <Container maxWidth="md">
         <div>DetailedRecipe</div>
-        <h1 onClick={onClick}>{recipe.description}</h1>
+        <h1 onClick={onClick}>{recipe.title}</h1>
         <Grid container direction="column">
           <Grid size="grow">
             {
               //audio goes here
             }
-            <h1>hello</h1>
-            <audio controls autoplay>
-              <source src={audioPath} type="audio/wav"/>
-            Your browser does not support the audio element.
-            </audio>
+            {audioPath != "" ? (
+              <audio controls autoplay>
+                <source src={audioPath} type="audio/wav" />
+                Your browser does not support the audio element.
+              </audio>
+            ) : (
+              <h2>No audio available</h2>
+            )}
           </Grid>
 
           <Grid size="grow">
@@ -57,7 +62,7 @@ const DetailedRecipe = ({ recipe, onClick }) => {
                   //description and notes stacked
                 }
                 <Stack spacing={2}>
-                  <h1>desc</h1>
+                  <h1>{recipe.description}</h1>
                   <h1>notes</h1>
                 </Stack>
               </Grid>
