@@ -66,7 +66,39 @@ def addRecipe(request):
     else:
         
         return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def addRecipeComprehensive(request):
+        
+    title =request.POST.get('title')
 
+    desc =request.POST.get('desc')
+    
+    data = {"title":title, 
+            "description":desc}
+    
+    if "pic" in request.FILES:
+        pic = request.FILES['pic']
+        data["pic"] = pic
+    
+    
+    #proceed to add the audio to recipe serialiser and object
+    if "audio" in request.FILES:
+        audio = request.FILES['audio']
+        data['audio'] = audio  
+    #should probably validate the audio file here somewhere
+       
+    serializer = RecipeSerializer(data=data)
+    
+    print(serializer.initial_data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
+    else:
+        
+        return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
+    
     
 @api_view(["POST"])
 def addRecipePic(request):

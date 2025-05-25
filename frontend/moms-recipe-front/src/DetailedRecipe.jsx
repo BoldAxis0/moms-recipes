@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 
 //this page will show all the details of the cicked recipe
-const DetailedRecipe = ({ recipe, onClick }) => {
+const DetailedRecipe = ({ recipe, onBackButtonClick }) => {
   //this whole path thing will need to be
   // reworked when deployed
   let [imgPath, setImgPath] = useState();
   useEffect(() => {
     setImgPath(`http://localhost:8000${recipe.pic}`);
   }, []);
+
   useEffect(() => {
     console.log("path incoming: ", imgPath);
   }, [imgPath]);
@@ -33,9 +34,13 @@ const DetailedRecipe = ({ recipe, onClick }) => {
 
   return (
     <>
+      <Button variant="contained" onClick={onBackButtonClick}>
+        Back
+      </Button>
+      
       <Container maxWidth="md">
-        <div>DetailedRecipe</div>
-        <h1 onClick={onClick}>{recipe.title}</h1>
+
+        <h1>{recipe.title}</h1>
         <Grid container direction="column">
           <Grid size="grow">
             {
