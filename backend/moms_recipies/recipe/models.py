@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -12,6 +13,6 @@ class Recipe(models.Model):
     
     pic = models.ImageField(upload_to="pics/recipes", blank = True, null=True)
     
-    audio = models.FileField(upload_to="audio/recipes", blank=True, null=True)
+    audio = CloudinaryField(blank=True, null=True, resource_type='raw', folder='media/audio/recipes')
     
     

@@ -12,10 +12,23 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_UPLOAD_MAX_MEMORY_SIZE = 100242880
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,12 +40,33 @@ SECRET_KEY = 'django-insecure-xq3l7b9!#cxtnaahgl^b9jjg9j17l40=%4%0cc*y5%0q(n$l4=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+ALLOWED_HOSTS = ['moms-recipes.herokuapp.com']  # Add custom domains here too
+
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print("MEDIA_ROOT is:", MEDIA_ROOT)
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# print("MEDIA_ROOT is:", MEDIA_ROOT)
 
 ALLOWED_HOSTS = []
 APPEND_SLASH=False
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+}
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
+
+# print(CLOUDINARY_STORAGE)
 
 
 # Application definition
@@ -46,6 +80,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'cloudinary',
+    'cloudinary_storage',
     "recipe",
 ]
 CORS_ALLOWED_ORIGINS = [
@@ -55,6 +91,7 @@ CORS_ALLOWED_ORIGINS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
