@@ -41,14 +41,13 @@ SECRET_KEY = 'django-insecure-xq3l7b9!#cxtnaahgl^b9jjg9j17l40=%4%0cc*y5%0q(n$l4=
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['moms-recipes.herokuapp.com']  # Add custom domains here too
+ALLOWED_HOSTS = ['moms-recipes-67d19de66af2.herokuapp.com']  # Add custom domains here too
 
 
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # print("MEDIA_ROOT is:", MEDIA_ROOT)
 
-ALLOWED_HOSTS = []
 APPEND_SLASH=False
 
 STORAGES = {
@@ -125,12 +124,12 @@ WSGI_APPLICATION = 'moms_recipies.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

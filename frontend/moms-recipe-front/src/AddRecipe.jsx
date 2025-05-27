@@ -24,6 +24,7 @@ const AddRecipe = ({ onAddRecipeCancel }) => {
   const [pictureLocation, setPictureLocation] = useState("");
   const [titleText, setTitleText] = useState("");
   const [descText, setDescText] = useState("");
+  const [notesText, setNotesText] = useState("");
   const [submitEnable, setSubmitEnable] = useState(false);
   const [showSubmitted, setShowSubmitted] = useState(false);
 
@@ -31,12 +32,15 @@ const AddRecipe = ({ onAddRecipeCancel }) => {
     if (
       titleText != "" &&
       descText != "" &&
+      notesText != "" &&
       pictureLocation != "" &&
-      audioLocation != ""
+      audioLocation != "" 
     ) {
       setSubmitEnable(true);
     }
-  }, [audioLocation, pictureLocation, titleText, descText]);
+  }, [audioLocation, pictureLocation, titleText, descText, notesText]);
+
+
   const onAudioChange = (event) => {
     const audioFile = event.target.files[0];
     if (audioFile) {
@@ -55,9 +59,11 @@ const AddRecipe = ({ onAddRecipeCancel }) => {
     const recipeObject = {
       title: titleText,
       desc: descText,
+      notes: notesText,
       pic: pictureLocation,
       audio: audioLocation,
     };
+
     const response = axios.post(url, recipeObject, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -106,6 +112,21 @@ const AddRecipe = ({ onAddRecipeCancel }) => {
                 variant="outlined"
                 onChange={(event) => {
                   setDescText(event.target.value);
+                }}
+                sx={{
+                  backgroundColor: "white", // Set background color
+                  input: { color: "black" },
+                  padding: "10px", // Set text color
+                }}
+              />
+            </Grid>
+            <Grid item size="grow">
+              <TextField
+                fullWidth
+                label="Notes"
+                variant="outlined"
+                onChange={(event) => {
+                  setNotesText(event.target.value);
                 }}
                 sx={{
                   backgroundColor: "white", // Set background color
