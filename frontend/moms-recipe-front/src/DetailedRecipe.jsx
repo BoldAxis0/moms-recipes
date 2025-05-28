@@ -15,7 +15,7 @@ const DetailedRecipe = ({ recipe, onBackButtonClick }) => {
   // reworked when deployed
   let [imgPath, setImgPath] = useState();
   useEffect(() => {
-    setImgPath(`http://localhost:8000${recipe.pic}`);
+    setImgPath(recipe.pic);
   }, []);
 
   useEffect(() => {
@@ -25,7 +25,9 @@ const DetailedRecipe = ({ recipe, onBackButtonClick }) => {
   let [audioPath, setAudioPath] = useState();
 
   useEffect(() => {
-    setAudioPath(recipe.audio ? `http://localhost:8000${recipe.audio}` : "");
+    setAudioPath(
+      recipe.audio ? `https://res.cloudinary.com/dtkf1obor/${recipe.audio}` : ""
+    );
   }, []);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const DetailedRecipe = ({ recipe, onBackButtonClick }) => {
               //audio goes here
             }
             {audioPath != "" ? (
-              <audio controls autoplay>
+              <audio controls>
                 <source src={audioPath} type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>

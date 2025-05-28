@@ -13,7 +13,7 @@ function RecipeCard({ onClick, recipe }) {
   let [imgPath, setImgPath] = useState();
 
   useEffect(() => {
-    setImgPath(`http://localhost:8000${recipe.pic}`);
+    setImgPath(recipe.pic);
   }, [recipe]);
 
   return (

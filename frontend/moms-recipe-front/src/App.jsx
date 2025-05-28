@@ -6,7 +6,7 @@ import RecipeCard from "./RecipeCard";
 import axios from "axios";
 import { Button, List, ListItem, Container, Grid, Stack } from "@mui/material";
 import DetailedRecipe from "./DetailedRecipe";
-import AddRecipe from "./AddRecipe";
+// import AddRecipe from "./AddRecipe";
 
 function App() {
   // const axios = require('axios')
@@ -20,15 +20,17 @@ function App() {
   // then set the on click of each to toggle recipeClicked, and then show
   // detailedRecipe page with the details sent as prop
 
-  const [addRecipeClicked, setAddRecipeClicked] = useState(false);
+  // const [addRecipeClicked, setAddRecipeClicked] = useState(false);
 
-  const onAddRecipeClicked = () => {
-    setAddRecipeClicked(true);
-  };
+  // const onAddRecipeClicked = () => {
+  //   setAddRecipeClicked(true);
+  // };
 
-  const url = "http://127.0.0.1:8000/recipe/getAllRecipes/";
+  const url =
+    "http://moms-recipes-67d19de66af2.herokuapp.com/recipe/getAllRecipes/";
   const fetchAllRecipes = async () => {
     const response = await axios.get(url);
+    
     // waits until the request completes...
     // setRecipes(response.data)
     // console.log(response.data)
@@ -57,9 +59,9 @@ function App() {
     setRecipeClicked(false);
   };
 
-  const onAddRecipeCancel = () => {
-    setAddRecipeClicked(false);
-  };
+  // const onAddRecipeCancel = () => {
+  //   setAddRecipeClicked(false);
+  // };
 
   //this is too many cascading ternary operators. Should refactor to if else or switch later
   return (
@@ -68,7 +70,7 @@ function App() {
         {
           //if add recipe is clicked change everything to that layout
         }
-        {!addRecipeClicked ? (
+        {/* {!addRecipeClicked ? ( */}
           <>
             {!recipeClicked ? (
               <>
@@ -79,12 +81,12 @@ function App() {
                         <h1>Mom's Recipes</h1>
                       </Grid>
                       <Grid item size="grow">
-                        <Button
+                        {/* <Button
                           variant="contained"
                           onClick={onAddRecipeClicked}
                         >
                           Add Recipe
-                        </Button>
+                        </Button> */}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -115,9 +117,9 @@ function App() {
               </>
             )}
           </>
-        ) : (
-          <AddRecipe onAddRecipeCancel={onAddRecipeCancel} />
-        )}
+        {/* ) : ( */}
+          {/* <AddRecipe onAddRecipeCancel={onAddRecipeCancel} /> */}
+        {/* )} */}
       </Container>
     </>
   );

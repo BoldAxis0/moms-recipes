@@ -44,149 +44,149 @@ def getAllRecipes(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
-def addRecipe(request):
+# @api_view(["POST"])
+# def addRecipe(request):
     
-    #add a recipe
-    #get all recipe info from the request object
-    req_body = json.loads(request.body.decode('utf-8'))
-    title = req_body["title"]
-    desc = req_body["description"]
+#     #add a recipe
+#     #get all recipe info from the request object
+#     req_body = json.loads(request.body.decode('utf-8'))
+#     title = req_body["title"]
+#     desc = req_body["description"]
     
-    data = {
-        "title": title,
-        "description":desc 
-    }
+#     data = {
+#         "title": title,
+#         "description":desc 
+#     }
     
     
-    serializer = RecipeSerializer(data=data)
-    print(serializer.initial_data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
-    else:
+#     serializer = RecipeSerializer(data=data)
+#     print(serializer.initial_data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
+#     else:
         
-        return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
+#         return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(["POST"])
-def addRecipeComprehensive(request):
+# @api_view(["POST"])
+# def addRecipeComprehensive(request):
         
-    title =request.POST.get('title')
+#     title =request.POST.get('title')
 
-    desc =request.POST.get('desc')
+#     desc =request.POST.get('desc')
     
-    notes = request.POST.get("notes")
+#     notes = request.POST.get("notes")
     
-    if notes == os.environ.get("SECRET_UPLOAD_KEY"):
+#     if notes == os.environ.get("SECRET_UPLOAD_KEY"):
     
     
-        data = {"title":title, 
-                "description":desc}
+#         data = {"title":title, 
+#                 "description":desc}
         
-        if "pic" in request.FILES:
-            pic = request.FILES['pic']
-            data["pic"] = pic
+#         if "pic" in request.FILES:
+#             pic = request.FILES['pic']
+#             data["pic"] = pic
         
         
-        #proceed to add the audio to recipe serialiser and object
-        if "audio" in request.FILES:
-            audio = request.FILES['audio']
-            data['audio'] = audio  
-        #should probably validate the audio file here somewhere
+#         #proceed to add the audio to recipe serialiser and object
+#         if "audio" in request.FILES:
+#             audio = request.FILES['audio']
+#             data['audio'] = audio  
+#         #should probably validate the audio file here somewhere
         
-        serializer = RecipeSerializer(data=data)
+#         serializer = RecipeSerializer(data=data)
         
-        print(serializer.initial_data)
+#         print(serializer.initial_data)
         
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
-        else:
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"message": f"New Recipe saved successfully: {title}"}, status=status.HTTP_200_OK)
+#         else:
             
-            return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
+#             return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
     
-    else:
+#     else:
         
-        return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
+#         return Response({"message":"Recipe creation failed"}, status=status.HTTP_400_BAD_REQUEST)
 
         
     
     
-@api_view(["POST"])
-def addRecipePic(request):
-    #get the id for the recipe
-    # req_body = json.loads(request.body.decode('utf-8'))
+# @api_view(["POST"])
+# def addRecipePic(request):
+#     #get the id for the recipe
+#     # req_body = json.loads(request.body.decode('utf-8'))
     
-    #everywhere else the id is passed as JSON, but here it is passed
-    #as form data, along with the image file
-    id = request.POST.get('id')
+#     #everywhere else the id is passed as JSON, but here it is passed
+#     #as form data, along with the image file
+#     id = request.POST.get('id')
     
-    # id = req_body['id']
+#     # id = req_body['id']
 
-    try:
-        recipe = Recipe.objects.get(id = id)
-    except:
-        return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
+#     try:
+#         recipe = Recipe.objects.get(id = id)
+#     except:
+#         return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
     
-    print(recipe.title)
+#     print(recipe.title)
     
-    #add the image file to the image parameter??
-    #read pic from reqeust.FILES
-    try:
-        pic = request.FILES['pic']
-    except:
-        return Response({"message":"pic field not found"}, status=status.HTTP_404_NOT_FOUND)
+#     #add the image file to the image parameter??
+#     #read pic from reqeust.FILES
+#     try:
+#         pic = request.FILES['pic']
+#     except:
+#         return Response({"message":"pic field not found"}, status=status.HTTP_404_NOT_FOUND)
     
-    print(pic)
+#     print(pic)
     
-    data = {"pic":pic}
+#     data = {"pic":pic}
     
-    serializer = RecipeSerializer(recipe, data = data, partial=True)
+#     serializer = RecipeSerializer(recipe, data = data, partial=True)
     
-    if serializer.is_valid():
-        serializer.save()
-        return Response(status=status.HTTP_200_OK)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(status=status.HTTP_200_OK)
     
-    else:
-        return Response({"message":"Something broke"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#     else:
+#         return Response({"message":"Something broke"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-    #???? profit
+#     #???? profit
     
-    #image file be passed as form data
+#     #image file be passed as form data
     
-@api_view(["POST"])
-def addRecipeAudio(request):
+# @api_view(["POST"])
+# def addRecipeAudio(request):
     
-    #get the recipe id from the form request
+#     #get the recipe id from the form request
     
-    id = request.POST.get('id')
+#     id = request.POST.get('id')
     
-    try:
-        recipe = Recipe.objects.get(id = id)
-        # print("ass")
-    except:
-        return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
+#     try:
+#         recipe = Recipe.objects.get(id = id)
+#         # print("ass")
+#     except:
+#         return Response({"message":"invalid id, recipe not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    print(recipe.title)
+#     print(recipe.title)
 
-    #proceed to add the audio to recipe serialiser and object
-    try:
-        audio = request.FILES['audio']
-    except:
-        return Response({"message":"audio field not found"}, status=status.HTTP_404_NOT_FOUND)
+#     #proceed to add the audio to recipe serialiser and object
+#     try:
+#         audio = request.FILES['audio']
+#     except:
+#         return Response({"message":"audio field not found"}, status=status.HTTP_404_NOT_FOUND)
        
-    #should probably validate the audio file here somewhere
+#     #should probably validate the audio file here somewhere
     
-    print(audio)
+#     print(audio)
     
-    data = {"audio":audio}
+#     data = {"audio":audio}
     
-    serializer = RecipeSerializer(recipe, data= data, partial = True)
+#     serializer = RecipeSerializer(recipe, data= data, partial = True)
     
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"message":"audio saved successfully"}, status=status.HTTP_200_OK)
-    else:
-        return Response({"message":"serialization failed"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response({"message":"audio saved successfully"}, status=status.HTTP_200_OK)
+#     else:
+#         return Response({"message":"serialization failed"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     

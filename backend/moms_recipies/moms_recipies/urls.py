@@ -25,4 +25,4 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path("recipe/", include("recipe.urls")),
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
