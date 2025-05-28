@@ -85,6 +85,9 @@ INSTALLED_APPS = [
 ]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    "https://www.momsrecipes.rocks/",
+    "https://moms-recipies.vercel.app/",
+    "https://moms-recipies-siddharth-dandekars-projects.vercel.app/",
 ]
 
 

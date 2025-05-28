@@ -27,7 +27,7 @@ function App() {
   // };
 
   const url =
-    "http://moms-recipes-67d19de66af2.herokuapp.com/recipe/getAllRecipes/";
+    "https://moms-recipes-67d19de66af2.herokuapp.com/recipe/getAllRecipes/";
   const fetchAllRecipes = async () => {
     const response = await axios.get(url);
     
