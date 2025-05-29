@@ -9,7 +9,7 @@ WhatsApp account, and if my account was lost so would all the recipes.
 <br><br>
 So here it is, MomsRecipes. A medium-term solution to preserve and access my moms recipes from anywhere. 
 <br><br>
-The app is built with Django for the backend and React.js in the front. Frontend hosted on Vercel, backend on Heroku, media on Cloudinary, and domain from Name.com. This is a fun project, very bare bones right now, but I'll continue working on it. 
+The app is built with Django for the backend and React.js in the front. Frontend hosted on Vercel, backend on Heroku, media on Cloudinary, and domain from Name.com. This has been a fun project, very bare bones right now, but I'll continue working on it. 
 <br><br>
 The site is accessible at <a href="https://momsrecipes.rocks">www.momsrecipes.rocks</a> (I got this domain free 😅)
 <br><br>
