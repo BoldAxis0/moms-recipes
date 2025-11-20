@@ -34,6 +34,7 @@ function App() {
     // console.log(response.data)
     return response.data;
   };
+  
 
   useEffect(() => {
     fetchAllRecipes().then((result) => {

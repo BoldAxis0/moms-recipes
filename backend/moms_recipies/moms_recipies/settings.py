@@ -12,23 +12,25 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
-import dj_database_url
+# import environ  # PRODUCTION: Uncomment for prod
+# import dj_database_url  # PRODUCTION: Uncomment for prod
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_UPLOAD_MAX_MEMORY_SIZE = 100242880
 
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# PRODUCTION: Uncomment for prod
+# env = environ.Env()
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+# PRODUCTION: Uncomment for prod
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600)
+# }
 
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-}
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# PRODUCTION: Uncomment for prod
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,31 +42,36 @@ SECRET_KEY = 'django-insecure-xq3l7b9!#cxtnaahgl^b9jjg9j17l40=%4%0cc*y5%0q(n$l4=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# PRODUCTION: Uncomment for prod
+# ALLOWED_HOSTS = ['moms-recipes.herokuapp.com']  # Add custom domains here too
 
-ALLOWED_HOSTS = ['moms-recipes.herokuapp.com']  # Add custom domains here too
+# LOCAL: Comment out for prod
+ALLOWED_HOSTS = []
 
+APPEND_SLASH = False
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# LOCAL: Comment out for prod
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # print("MEDIA_ROOT is:", MEDIA_ROOT)
 
-ALLOWED_HOSTS = []
-APPEND_SLASH=False
+# PRODUCTION: Uncomment for prod
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+#         },
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#         },
+# }
 
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-        },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-}
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': env('CLOUDINARY_API_KEY'),
-    'API_SECRET': env('CLOUDINARY_API_SECRET'),
-}
+# PRODUCTION: Uncomment for prod
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+#     'API_KEY': env('CLOUDINARY_API_KEY'),
+#     'API_SECRET': env('CLOUDINARY_API_SECRET'),
+# }
 
 # print(CLOUDINARY_STORAGE)
 
@@ -80,8 +87,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',  # PRODUCTION: Uncomment for prod
+    # 'cloudinary_storage',  # PRODUCTION: Uncomment for prod
     "recipe",
 ]
 CORS_ALLOWED_ORIGINS = [
@@ -91,7 +98,7 @@ CORS_ALLOWED_ORIGINS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # PRODUCTION: Uncomment for prod
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
