@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-from cloudinary.models import CloudinaryField
+# from cloudinary.models import CloudinaryField  # PRODUCTION: Uncomment for prod
 
 # Create your models here.
 
@@ -8,11 +8,13 @@ class Recipe(models.Model):
     title = models.CharField(max_length=300)
     
     description = models.CharField(null=True, blank=True, max_length=10000)
-    # audio = models.FileField()
+    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
-    pic = models.ImageField(upload_to="pics/recipes", blank = True, null=True)
+    pic = models.ImageField(upload_to="pics/recipes", blank=True, null=True)
     
-    audio = CloudinaryField(blank=True, null=True, resource_type='raw', folder='media/audio/recipes')
+    # LOCAL: Comment out for prod
+    audio = models.FileField(upload_to="audio/recipes", blank=True, null=True)
     
-    
+    # PRODUCTION: Uncomment for prod
+    # audio = CloudinaryField(blank=True, null=True, resource_type='raw', folder='media/audio/recipes')
