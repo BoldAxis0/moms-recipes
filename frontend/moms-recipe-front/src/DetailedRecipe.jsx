@@ -38,7 +38,7 @@ const DetailedRecipe = ({ recipe, onBackButtonClick }) => {
         Back
       </Button>
       
-      <Container maxWidth="md">
+      <Container maxWidth="">
 
         <h1>{recipe.title}</h1>
         <Grid container direction="column">

@@ -7,6 +7,7 @@ import axios from "axios";
 import { Button, List, ListItem, Container, Grid, Stack } from "@mui/material";
 import DetailedRecipe from "./DetailedRecipe";
 import AddRecipe from "./AddRecipe";
+import Layout from "./layout";
 
 function App() {
   // const axios = require('axios')
@@ -64,7 +65,7 @@ function App() {
 
   //this is too many cascading ternary operators. Should refactor to if else or switch later
   return (
-    <>
+    <Layout>
       <Container maxWidth="lg">
         {
           //if add recipe is clicked change everything to that layout
@@ -81,6 +82,7 @@ function App() {
                       </Grid>
                       <Grid item size="grow">
                         <Button
+                          sx={{ backgroundColor: "success.main" }}
                           variant="contained"
                           onClick={onAddRecipeClicked}
                         >
@@ -120,7 +122,7 @@ function App() {
           <AddRecipe onAddRecipeCancel={onAddRecipeCancel} />
         )}
       </Container>
-    </>
+    </Layout>
   );
 }
 

@@ -32,7 +32,7 @@ function RecipeCard({ onClick, recipe }) {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small" onClick={onClick}>
+        <Button size="small" onClick={onClick} sx = {{color: "success.main"}}>
           Learn More
         </Button>
       </CardActions>
